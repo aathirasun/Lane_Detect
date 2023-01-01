@@ -9,7 +9,7 @@ def canny(image):
     
 img=cv2.imread("C:\\Users\\aathi\\OneDrive\\Desktop\\Stuff\\school\\python programs\\rev\\test_image.jpg")
 lane_img=np.copy(img)
-canny =canny(lane_img)
+can1 =canny(lane_img)
 
-plt.imshow(canny)
+plt.imshow(can1)
 plt.show()
