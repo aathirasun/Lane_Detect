@@ -49,7 +49,7 @@ def make_coordinates(image, line_parameters):
     return np.array([x1,y1,x2,y2])
 
 
-img=cv2.imread("C:\\Users\\aathi\\OneDrive\\Desktop\\Stuff\\school\\python programs\\rev\\test_image.jpg")
+img=cv2.imread("test_image.jpg")
 lane_img=np.copy(img)
 canny_img =canny(lane_img)
 draw=Reg_of_interest(canny_img)
