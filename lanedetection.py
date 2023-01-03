@@ -16,8 +16,8 @@ def displayLines(image,lines):
     if lines is not None:
         for line in lines:
             x1,y1,x2,y2=line.reshape(4)
-            print(x1,y1,x2,y2)
-            cv2.line(line_img, (int(x1),int(y1)) ,(int(x2),int(y2)),(255,0,0),10)
+            #print(x1,y1,x2,y2)
+            cv2.line(line_img, (x1,y1) ,(x2,y2),(255,0,0),10)
     return line_img
 def avg_slope(image,lines):
     left_fit=[] 
@@ -33,19 +33,19 @@ def avg_slope(image,lines):
             right_fit.append((slope,intercept))
     left_fit_avg=np.average(left_fit, axis=0)
     right_fit_avg=np.average(right_fit, axis=0)
-    print("left",left_fit_avg)
-    print("right",right_fit_avg)
-    left_line=make_coordinates(img,left_fit_avg)
-    right_line=make_coordinates(img,right_fit_avg)
+    #print("left",left_fit_avg)
+    #print("right",right_fit_avg)
+    left_line=make_coordinates(image,left_fit_avg)
+    right_line=make_coordinates(image,right_fit_avg)
     return np.array([left_line,right_line])
 
 def make_coordinates(image, line_parameters):
     slope,intercept=line_parameters
-    print(image.shape)
+    #print(image.shape)
     y1=image.shape[0]
     y2=int(y1*(3/5))
-    x1=int(y1-intercept)/slope
-    x2=int(y1-intercept)/slope
+    x1=int((y1-intercept)/slope)
+    x2=int((y2-intercept)/slope)
     return np.array([x1,y1,x2,y2])
 
 
@@ -60,6 +60,7 @@ line_img=displayLines(lane_img,lines)
 blend_img=cv2.addWeighted(lane_img,0.8,line_img,1,1)
 avg_lines=avg_slope(lane_img,lines)
 line_img=displayLines(lane_img,avg_lines)
-cv2.imshow("image",line_img)
+blend_img=cv2.addWeighted(lane_img,0.8,line_img,1,1)
+cv2.imshow("image",blend_img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()    
